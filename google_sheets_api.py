@@ -69,6 +69,17 @@ class GoogleSheetsAPI:
             print(f"An error occurred: {error}")
             return []
 
+    def get_common_images(self):
+        IMAGES_RANGE = 'common!C2:C'
+        try:
+            result = self.service.spreadsheets().values().get(spreadsheetId=self.spreadsheet_id, range=IMAGES_RANGE).execute()
+            common_images = result.get('values', [])
+            return common_images
+        except HttpError as error:
+            print(f"An error occurred: {error}")
+            return []
+
+
     def get_titles(self):
         DATA_RANGE = 'titles!A2:D'
         try:
